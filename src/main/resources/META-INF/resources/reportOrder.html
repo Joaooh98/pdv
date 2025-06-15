@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão de Pedidos</title>
+    <!-- Adicionar proteção anti-clickjacking -->
+    <style>
+        html {
+            display: none;
+        }
+    </style>
+    <script>
+        // Mostrar a página apenas se não estiver em um iframe
+        if (self === top) {
+            document.documentElement.style.display = 'block';
+        } else {
+            top.location = self.location;
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/pages/report.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="header-left">
+                <a href="order.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Voltar</span>
+                </a>
+                <h1>Sistema de Gestão de Pedidos</h1>
+            </div>
+            
+            <div class="header-actions">
+                <a href="balance.html" class="consult-balance">
+                    <i class="fas fa-wallet"></i>
+                    <span>Verificar Saldo</span>
+                </a>
+                
+                <div class="date-filter">
+                    <form id="dateFilterForm">
+                        <div class="filter-group">
+                            <div class="input-group">
+                                <label for="startDate">De:</label>
+                                <input type="date" id="startDate" name="startDate">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="endDate">Até:</label>
+                                <input type="date" id="endDate" name="endDate">
+                            </div>
+                            
+                            <button type="submit" class="btn-filter">
+                                <i class="fas fa-filter"></i>
+                                Filtrar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <span>Carregando dados...</span>
+        </div>
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+        
+        <!-- Cards de resumo em layout flexível, similar ao da imagem -->
+        <div class="summary-cards-container" id="summarySection" style="display: none;">
+            <div class="summary-card">
+                <div class="card-label">TOTAL DE PEDIDOS</div>
+                <div class="card-value" id="totalOrders">0</div>
+            </div>
+            <div class="summary-card">
+                <div class="card-label">VALOR TOTAL</div>
+                <div class="card-value" id="totalAmount">€0,00</div>
+            </div>
+            <div class="summary-card">
+                <div class="card-label">CARTÃO</div>
+                <div class="card-value" id="totalCard">€0,00</div>
+            </div>
+            <div class="summary-card">
+                <div class="card-label">DINHEIRO</div>
+                <div class="card-value" id="totalCash">€0,00</div>
+            </div>
+        </div>
+
+        <div class="tab-container" id="tabContainer" style="display: none;">
+            <div class="tabs">
+                <div class="tab active" data-tab="professionals">
+                    <i class="fas fa-users"></i>
+                    Profissionais
+                </div>
+                <div class="tab" data-tab="orders">
+                    <i class="fas fa-receipt"></i>
+                    Pedidos
+                </div>
+            </div>
+
+            <div class="tab-content active" id="professionalsTab">
+                <section class="professionals-section">
+                    <h2>Resumo por Profissional</h2>
+                    <!-- Container dos cards de profissionais, com layout semelhante ao da imagem -->
+                    <div class="professionals-container" id="professionalsGrid">
+                        <!-- Profissionais serão inseridos aqui via JavaScript -->
+                    </div>
+                </section>
+            </div>
+
+            <div class="tab-content" id="ordersTab">
+                <section class="orders-section">
+                    <h2>Lista de Pedidos</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data/Hora</th>
+                                    <th>Profissional</th>
+                                    <th>Cliente</th>
+                                    <th>Serviço</th>
+                                    <th>Valor</th>
+                                    <th>Pagamento</th>
+                                    <th>Comissão</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                <!-- Pedidos serão inseridos aqui via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Gestão de Pedidos</p>
+        </div>
+    </footer>
+
+    <!-- Incluir scripts de autenticação -->
+    <script src="assets/js/utils/config.js"></script>
+    <script src="assets/js/utils/helpers.js"></script>
+    <script src="assets/js/auth/auth-service.js"></script>
+    <!-- Script principal -->
+    <script src="assets/js/pages/report.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDV - Tela de Login</title>
+
+  <!-- Importação das fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+
+  <!-- CSS de terceiros -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- CSS do sistema -->
+  <link href="assets/css/base/variables.css" rel="stylesheet">
+  <link href="assets/css/base/reset.css" rel="stylesheet">
+  <link href="assets/css/base/common.css" rel="stylesheet">
+  <link href="assets/css/pages/login.css" rel="stylesheet">
+  <style>
+    html {
+      display: none;
+    }
+  </style>
+  <script>
+    // Mostrar a página apenas se não estiver em um iframe
+    if (self === top) {
+      document.documentElement.style.display = 'block';
+    } else {
+      top.location = self.location;
+    }
+  </script>
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <h2>Bem-vindo</h2>
+      <form id="loginForm">
+        <div class="mb-3">
+          <label for="usuario" class="form-label">Usuário</label>
+          <input type="text" class="form-control" id="usuario" placeholder="Digite seu usuário" required>
+        </div>
+        <div class="mb-3">
+          <label for="senha" class="form-label">Senha</label>
+          <input type="password" class="form-control" id="senha" placeholder="Digite sua senha" required>
+        </div>
+        <div class="d-grid gap-2 mt-4">
+          <button type="submit" class="btn btn-login btn-lg">Entrar</button>
+          </button>
+        </div>
+      </form>
+      <div id="jsonOutput"></div>
+    </div>
+  </div>
+
+  <!-- Toast para mensagens -->
+  <div class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+  <!-- Scripts de terceiros -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Scripts do sistema - Utilitários -->
+  <script src="assets/js/utils/config.js"></script>
+  <script src="assets/js/utils/helpers.js"></script>
+
+  <!-- Scripts do sistema - Serviços -->
+  <script src="assets/js/api/api-service.js"></script>
+  <script src="assets/js/auth/auth-service.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Inicializa o serviço de autenticação
+      Auth.initialize();
+    });
+  </script>
+</body>
+
+</html>

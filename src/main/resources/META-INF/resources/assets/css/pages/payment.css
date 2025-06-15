@@ -1,0 +1,276 @@
+/* Layout Principal */
+body {
+    margin: 0;
+    padding: 20px;
+    height: 100vh;
+    background-color: #f5f5f5;
+    display: flex;
+    overflow: hidden;
+}
+
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.payment-section {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 20px;
+    min-height: calc(100vh - 40px);
+    max-height: calc(100vh - 40px);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* Formulário e Grid */
+.payment-form-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #dee2e6;
+    overflow-y: auto;
+}
+
+.card-header {
+    margin: -20px -20px 20px -20px;
+    padding: 15px 20px;
+    background: #0d6efd;
+    color: white;
+    border-radius: 12px 0 0 0;
+}
+
+.payment-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* Container do resumo */
+.payment-summary {
+    padding: 20px;
+    border-left: 1px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Tabela de itens */
+.items-table {
+    flex: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 400px);
+    margin-bottom: 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.items-table table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+/* Área de totais */
+.summary-totals {
+    padding-top: 10px;
+    flex-shrink: 0;
+}
+
+.summary-totals .d-flex {
+    margin-bottom: 8px;
+}
+
+/* Último item (Total Final) */
+.summary-totals .d-flex:last-child {
+    margin-bottom: 0;
+    padding-top: 8px;
+    border-top: 2px solid #dee2e6;
+}
+
+/* Valores em destaque */
+.discount-value {
+    color: var(--bs-danger);
+}
+
+.change-value {
+    color: var(--bs-success);
+}
+
+.total-value {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Botões */
+.card-footer {
+    padding: 15px 20px;
+    background: white;
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Tabela de Itens */
+.table {
+    margin-bottom: 0;
+    background: white;
+    border-radius: 8px;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .payment-section {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .payment-form-container {
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .card-header {
+        border-radius: 12px 12px 0 0;
+    }
+
+    .items-table {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-footer {
+        flex-direction: column;
+    }
+
+    .card-footer .btn {
+        width: 100%;
+    }
+}
+
+/* Estilização dos Inputs */
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+/* Modal de Erro */
+.modal-content {
+    border-radius: 12px;
+}
+
+.modal-header {
+    border-radius: 12px 12px 0 0;
+}
+
+#requestData {
+    font-size: 0.9em;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+/* Animações */
+.btn {
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Feedback visual */
+.invalid-feedback {
+    display: none;
+    color: var(--bs-danger);
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+}
+
+.was-validated .form-control:invalid ~ .invalid-feedback {
+    display: block;
+}
+
+.payment-summary .fw-bold {
+    font-size: 1.1em;
+    color: #2c3e50;
+}
+
+.payment-summary hr {
+    margin: 10px 0;
+}
+
+/* Botão de remover item */
+.btn-danger.btn-sm {
+    padding: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1;
+    border-radius: 0.2rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-danger.btn-sm i {
+    margin: 0;
+}
+
+/* Ajuste para a coluna de ações */
+.table th:last-child,
+.table td:last-child {
+    width: 50px;
+}

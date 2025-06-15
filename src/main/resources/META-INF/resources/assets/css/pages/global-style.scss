@@ -1,0 +1,14 @@
+:root {
+    --primary-dark: #303F9F;      /* tom mais escuro */
+    --primary: #3F51B5;           /* tom base */
+    --primary-light: #5C6BC0;      /* tom mais claro */
+    --bg-gradient-start: #e8eaf6;  /* fundo claro para gradiente */
+    --bg-gradient-end: #c5cae9;    /* fundo intermediário para gradiente */
+    --text-color: #333;
+    --font-family-base: 'Inter', 'Roboto', Arial, sans-serif;
+}
+
+body {
+    font-family: var(--font-family-base);
+    color: var(--text-color);
+}

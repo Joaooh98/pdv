@@ -1,0 +1,180 @@
+/* Estilos adicionais para o modal de contribuinte */
+
+/* Modal de Contribuinte */
+#contribuinteModal .modal-content {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+#contribuinteModal .modal-header {
+    border-radius: 12px 12px 0 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+#contribuinteModal .modal-body {
+    padding: 1.5rem;
+}
+
+#contribuinteModal .modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    border-radius: 0 0 12px 12px;
+}
+
+#contribuinteModal .form-control {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+#contribuinteModal .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+#contribuinteModal .form-control.is-valid {
+    border-color: #198754;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='m2.3 6.73.8-.8-.8-.8 1.4-1.4.8.8 1.6-1.6.8.8-2.4 2.4-1.4-1.4-.8.8z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+#contribuinteModal .form-control.is-invalid {
+    border-color: #dc3545;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.8 4.6 1.4 1.4m0-1.4-1.4 1.4'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+/* Labels do formulário */
+#contribuinteModal .form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+#contribuinteModal .form-label i {
+    color: #0d6efd;
+    margin-right: 0.25rem;
+}
+
+/* Texto de ajuda */
+#contribuinteModal .form-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 0.25rem;
+}
+
+/* Texto de ajuda específico para telemóvel */
+#telemovelContribuinte + .invalid-feedback + .form-text {
+    color: #0d6efd;
+    font-weight: 500;
+}
+
+/* Mensagens de validação */
+#contribuinteModal .invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #dc3545;
+}
+
+/* Botões do modal */
+#contribuinteModal .btn {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+#contribuinteModal .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+#contribuinteModal .btn i {
+    font-size: 0.875rem;
+}
+
+/* Animações de transição */
+#dadosContribuinteForm {
+    transition: all 0.3s ease;
+}
+
+#botoesEscolha, #botoesFormulario {
+    transition: all 0.3s ease;
+}
+
+/* Texto de pergunta */
+#contribuinteModal .modal-body > p {
+    font-size: 1.1rem;
+    color: #495057;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+    #contribuinteModal .modal-dialog {
+        margin: 0.5rem;
+        max-height: 95vh;
+    }
+    
+    #contribuinteModal .modal-content {
+        max-height: 95vh;
+    }
+    
+    #contribuinteModal .modal-body {
+        padding: 1rem;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+    
+    #contribuinteModal .modal-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+    
+    #contribuinteModal .modal-footer .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Estados de carregamento */
+.btn-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

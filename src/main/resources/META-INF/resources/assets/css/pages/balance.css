@@ -1,0 +1,54 @@
+:root {
+    --primary-color: #4a6cf7;
+    --primary-light: #6384ff;
+    --primary-dark: #3451d1;
+    --secondary-color: #1e293b;
+    --secondary-light: #334155;
+    --secondary-dark: #0f172a;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --light-color: #f8fafc;
+    --dark-color: #1e293b;
+    --text-color: #334155;
+    --text-light: #64748b;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Footer Styles */
+footer {
+    margin-top: auto;
+    background-color: var(--secondary-dark);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 15px 0;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+
+@media (max-width: 900px) {
+
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 576px) {
+
+}
+
+/* Prevenção contra Clickjacking */
+html {
+    display: block;
+}

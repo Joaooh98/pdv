@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Pedidos - Pagamento</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/pages/payment.css" rel="stylesheet">
+    <link href="assets/css/pages/customer.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <div class="payment-section">
+            <!-- Formulário de Pagamento -->
+            <div class="payment-form-container">
+                <div class="card-header">
+                    <h5 class="mb-0">Finalizar Pagamento</h5>
+                </div>
+                
+                <div class="payment-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-money-bill"></i> Dinheiro
+                            </label>
+                            <input type="number" class="form-control" id="valorDinheiro" step="0.01" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-credit-card"></i> Cartão
+                            </label>
+                            <input type="number" class="form-control" id="valorCartao" step="0.01" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-tag"></i> Tipo de Desconto
+                            </label>
+                            <select class="form-select" id="tipoDesconto">
+                                <option value="">Selecione...</option>
+                                <option value="PERCENTUAL">Percentual</option>
+                                <option value="FIXO">Valor Fixo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-percentage"></i> Valor do Desconto
+                            </label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="valorDesconto" step="0.01" min="0">
+                                <button class="btn btn-primary" type="button" id="btnAplicarDesconto">
+                                    Aplicar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-secondary" id="btnVoltar">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </button>
+                    <button class="btn btn-success" id="btnFinalizar">
+                        <i class="fas fa-check"></i> Finalizar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Resumo do Pedido -->
+            <div class="payment-summary">
+                <h5 class="mb-3">Resumo do Pedido</h5>
+                
+                <div class="items-table">
+                    <table class="table table-sm">
+                        <tbody id="resumoPagamento">
+                            <!-- Items serão inseridos aqui via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="summary-totals">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Total Original:</span>
+                        <span id="totalOriginal">€ 0,00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Total em Dinheiro:</span>
+                        <span id="totalDinheiro">€ 0,00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Total em Cartão:</span>
+                        <span id="totalCartao">€ 0,00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2 text-danger">
+                        <span>Desconto:</span>
+                        <span id="totalDesconto">€ 0,00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2 text-success">
+                        <span>Troco:</span>
+                        <span id="totalTroco">€ 0,00</span>
+                    </div>
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>Total Final:</span>
+                        <span id="totalFinal">€ 0,00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Dados do Contribuinte -->
+    <div class="modal fade" id="contribuinteModal" tabindex="-1" aria-labelledby="contribuinteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="contribuinteModalLabel">
+                        <i class="fas fa-user-tie me-2"></i>
+                        Dados do Contribuinte
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-4">Deseja adicionar dados de contribuinte (NIF) à fatura?</p>
+                    
+                    <!-- Formulário de dados do contribuinte (inicialmente oculto) -->
+                    <div id="dadosContribuinteForm" class="d-none">
+                        <div class="mb-3">
+                            <label for="nomeContribuinte" class="form-label">
+                                <i class="fas fa-user me-1"></i>
+                                Nome para Fatura <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="nomeContribuinte" placeholder="Digite o nome completo">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="nifContribuinte" class="form-label">
+                                <i class="fas fa-id-card me-1"></i>
+                                Número de Contribuinte (NIF) <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="nifContribuinte" placeholder="Digite o NIF (9 dígitos)" maxlength="9">
+                            <div class="invalid-feedback"></div>
+                            <div class="form-text">Digite apenas números (9 dígitos)</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="telemovelContribuinte" class="form-label">
+                                <i class="fas fa-mobile-alt me-1"></i>
+                                Número de Telemóvel <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="telemovelContribuinte" placeholder="Digite o telemóvel (9 dígitos)" maxlength="9">
+                            <div class="invalid-feedback"></div>
+                            <div class="form-text">Exemplo: 912345678 (9 dígitos começando por 9)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="botoesEscolha">
+                        <button type="button" class="btn btn-secondary" id="btnNaoAdicionarContribuinte">
+                            <i class="fas fa-times me-1"></i>
+                            Não
+                        </button>
+                        <button type="button" class="btn btn-primary" id="btnSimAdicionarContribuinte">
+                            <i class="fas fa-check me-1"></i>
+                            Sim
+                        </button>
+                    </div>
+                    
+                    <div id="botoesFormulario" class="d-none">
+                        <button type="button" class="btn btn-secondary" id="btnVoltarEscolha">
+                            <i class="fas fa-arrow-left me-1"></i>
+                            Voltar
+                        </button>
+                        <button type="button" class="btn btn-success" id="btnConfirmarContribuinte">
+                            <i class="fas fa-save me-1"></i>
+                            Confirmar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Erro -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="errorModalLabel">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        Erro ao Finalizar Pagamento
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3" id="errorMessage">Ocorreu um erro ao finalizar o pagamento. Detalhes do erro abaixo:</p>
+                    <div class="bg-light p-3 rounded position-relative">
+                        <pre id="requestData" class="mb-0" style="max-height: 300px; overflow-y: auto;"></pre>
+                        <button class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2" id="btnCopiarErro">
+                            <i class="fas fa-copy me-1"></i>Copiar JSON
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-danger px-4" id="btnVoltarModalErro">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast para mensagens -->
+    <div class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+    <!-- Scripts de terceiros -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Scripts do sistema - Utilitários -->
+    <script src="assets/js/utils/config.js"></script>
+    <script src="assets/js/utils/helpers.js"></script>
+    
+    <!-- Scripts do sistema - Serviços -->
+    <script src="assets/js/api/api-service.js"></script>
+    <script src="assets/js/auth/auth-service.js"></script>
+    <script src="assets/js/components/cart-service.js"></script>
+    
+    <!-- Scripts da página -->
+    <script src="assets/js/pages/payment.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializa a classe de pagamento
+            window.paymentController = new PaymentController();
+            
+            // Configura os listeners para os botões
+            document.getElementById('btnAplicarDesconto').addEventListener('click', () => {
+                paymentController.aplicarDesconto();
+            });
+            
+            document.getElementById('btnVoltar').addEventListener('click', () => {
+                paymentController.voltarParaPedido();
+            });
+            
+            document.getElementById('btnFinalizar').addEventListener('click', () => {
+                paymentController.finalizarPagamento();
+            });
+            
+            document.getElementById('btnCopiarErro').addEventListener('click', () => {
+                paymentController.copiarErro();
+            });
+            
+            document.getElementById('btnVoltarModalErro').addEventListener('click', () => {
+                paymentController.voltarAoCarrinho();
+            });
+        });
+    </script>
+</body>
+</html>
